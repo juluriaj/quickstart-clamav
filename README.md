@@ -24,10 +24,11 @@
     `aws ecr create-repository --repository-name <<IMAGE_REPO_NAME>> --image-tag-mutability IMMUTABLE--image-scanning-configuration scanOnPush=true`
 
 ## How to deploy the solution
-1. Clone this repository
+1. Fork this repository into your own git account and run `git clone` to download the code into your local computer
+1. Update the repository URL in template.yml at line 154
 1. Update the image repository name created above in buildspec.yml at both line 21 and 22
 1. Create your personal access token from [github](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
-    1. Learn more about configuring CodeBuild to access your source provider by [clicking here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
+    1. Learn more about configuring CodeBuild to access your source provider like  by [clicking here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
 1. Store your token in AWS SecretsManager and note the secret name and key
 1. Replace the secretname and key at line 121 in template.yml
 1. Run `sam build` from the project home folder
@@ -36,7 +37,14 @@
 1. After the stack is deployed, go to [AWS CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects), open code build project and add VPC as per [instructions here](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
 
 ## TODO:
-1. Make this solution work with one or more existing bucket(s)
-2. Input VPC to allow codebuild to reach internet and avoid manual modification of codebuild project
-3. Add support for S3 object versions
-4. Trim down the IAM permissions across the solution
+1. Functional enhancements:
+    1. Make this solution work with one or more existing bucket(s)
+    1. Input VPC to allow codebuild to reach internet and avoid manual modification of codebuild project
+    1. Add support for S3 object versions
+1. Security:
+    1. Trim down the IAM permissions across all the roles in the solution
+1. Internal Operations (In QuickStart account?):
+    1. Build processes to produce CloudFormation templates for lambda, fargate, EC2 versions
+    1. Build process to update container image nightly in the public repo
+1. Prepare Cost estimations and Licenses
+1. Document QuickStart guide for customers
