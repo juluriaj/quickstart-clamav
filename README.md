@@ -28,7 +28,7 @@
 1. Update the repository URL in template.yml at line 154
 1. Update the image repository name created above in buildspec.yml at both line 21 and 22
 1. Create your personal access token from [github](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
-    1. Learn more about configuring CodeBuild to access your source provider like  by [clicking here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
+    1. Learn more about configuring CodeBuild to access your source provider by [clicking here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
 1. Store your token in AWS SecretsManager and note the secret name and key
 1. Replace the secretname and key at line 121 in template.yml
 1. Run `sam build` from the project home folder
