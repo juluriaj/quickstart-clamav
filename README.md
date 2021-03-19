@@ -64,17 +64,17 @@
 ## Example CodeBuild Configuration
 
 - Source:
- - GitHub
+  - GitHub
 - Environment:
- - Environment Image: Managed Image
- - Operating System: Amazon Linux 2
- - Runtime: Standard
- - Image: standard:3.0
- - Image Version: Always use the latest image
- - Service Role: New service role
- - Role name: codebuild-Quickstart-ClamAV-service-role
+  - Environment Image: Managed Image
+  - Operating System: Amazon Linux 2
+  - Runtime: Standard
+  - Image: standard:3.0
+  - Image Version: Always use the latest image
+  - Service Role: New service role
+  - Role name: codebuild-Quickstart-ClamAV-service-role
 - Build Specifications:
- - Use a buildspec file
+  - Use a buildspec file
 
 # Planned Future Enhancements:
 
