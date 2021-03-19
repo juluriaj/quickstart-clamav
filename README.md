@@ -7,9 +7,9 @@
 ## Runtime Architecture Flow
 
 1. New objects are placed in S3 bucket in designated folder
-1. S3 triggers the lambda function 
-1. Lambda function pulls the latest docker image from ECR registry
-1. Lambda function scans the new object for viruses using ClamAV open source
+2. S3 triggers the lambda function 
+3. Lambda function pulls the latest docker image from ECR registry
+4. Lambda function scans the new object for viruses using ClamAV open source
 
 ## Development Architecture Flow
 
@@ -27,8 +27,8 @@
 
 ## 1. Prerequisites
 1. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) and the [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-1. [Configure the AWS CLI with your credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-1. Create a new image repo using AWS console or CLI with the following command:
+2. [Configure the AWS CLI with your credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+3. Create a new image repo using AWS console or CLI with the following command:
 
     `aws ecr create-repository --repository-name quickstart-clamav --image-tag-mutability IMMUTABLE --image-scanning-configuration scanOnPush=true`
 
@@ -37,26 +37,28 @@
 ## 2. Initial Configuration
 
 1. [Fork this repo](https://guides.github.com/activities/forking/) into your own GitHub account 
-1. Run `git clone` to download the repo locally
-1. Update the repo URL in **template.yml** at line 154
-1. Update the image repo name in **buildspec.yml** on lines 21 and 22
-1. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
-1. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
-1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
+2. Run `git clone` to download the repo locally
+3. Update the repo URL in **template.yml** at line 154
+4. Update the image repo name in **buildspec.yml** on lines 21 and 22
+5. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
+   -  Under scopes, select **repo** - full control of private repositories
+   -  Make sure to copy your personal access token upon creation
+6. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
+7. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
-1. Replace the secret name and key on line 121 in **template.yml**
+8. Replace the secret name and key on line 121 in **template.yml**
 
 ## 3. SAM Setup
 
 1. Run `sam build` from the project home folder
    - [Click here for SAM build documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html)
-1. Run `sam deploy -g --capabilities CAPABILITY_NAMED_IAM` and fill out the prompts
+2. Run `sam deploy -g --capabilities CAPABILITY_NAMED_IAM` and fill out the prompts
    - You need URL of the image repo you created in the prerequisites
      - Example: `ACCOUNT_ID`.dkr.ecr.`AWS_REGION`.amazonaws.com/`REPO_NAME`
    - This solution deletes infected files by default
      - If you want to tag files instead, enter `Tag` as the value for the **PreferredAction** parameter
-1. After the stack is deployed, [go to the CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects) 
-1. Once in the console, open the CodeBuild project [and add a VPC](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
+3. After the stack is deployed, [go to the CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects) 
+4. Once in the console, open the CodeBuild project [and add a VPC](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
 
 # Planned Future Enhancements:
 
@@ -64,10 +66,10 @@
     - Make this solution work with one or more existing buckets
     - Input VPC to allow codebuild to reach internet and avoid manual modification of codebuild project
     - Add support for S3 object versions
-1. Security:
+2. Security:
     - Trim down the IAM permissions across all the roles in the solution
-1. Internal Operations (In QuickStart account?):
+3. Internal Operations (In QuickStart account?):
     - Build processes to produce CloudFormation templates for Lambda, Fargate and EC2
     - Build process to update container image nightly in the public repo
-1. Prepare Cost estimations and Licenses
-1. Document QuickStart guide for customers
+4. Prepare Cost estimations and Licenses
+5. Document QuickStart guide for customers
