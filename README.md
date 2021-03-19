@@ -21,7 +21,7 @@
 1. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) & [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 1. Configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 1. Create a new image repository using AWS console or CLI with command
-    `aws ecr create-repository --repository-name <<IMAGE_REPO_NAME>> --image-tag-mutability IMMUTABLE--image-scanning-configuration scanOnPush=true`
+    `aws ecr create-repository --repository-name quickstart-clamav --image-tag-mutability IMMUTABLE --image-scanning-configuration scanOnPush=true`
 
 ## How to deploy the solution
 1. Fork this repository into your own git account and run `git clone` to download the code into your local computer
