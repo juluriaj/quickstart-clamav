@@ -43,7 +43,19 @@
 5. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
    -  Under scopes, select **repo** - full control of private repositories
    -  Make sure to copy your personal access token upon creation
-6. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
+6. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html) using the following configuration options:
+  - Source:
+    - GitHub
+  - Environment:
+    - Environment Image: Managed Image
+    - Operating System: Amazon Linux 2
+    - Runtime: Standard
+    - Image: standard:3.0
+    - Image Version: Always use the latest image
+    - Service Role: New service role
+    - Role name: codebuild-Quickstart-ClamAV-service-role
+  - Build Specifications:
+    - Use a buildspec file
 7. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
 8. Replace the secret name and key on line 121 in **template.yml**
