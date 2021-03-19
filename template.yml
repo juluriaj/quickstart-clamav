@@ -151,7 +151,7 @@ Resources:
         Auth:
           Resource: !Ref CodeBuildSourceCredential
           Type: OAUTH
-        Location: https://github.com/juluriaj/quickstart-clamav.git
+        Location: https://github.com/EXAMPLE/quickstart-clamav.git
         Type: GITHUB
         GitCloneDepth: 1
       Triggers:
