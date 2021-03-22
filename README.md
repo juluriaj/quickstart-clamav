@@ -46,10 +46,10 @@
 6. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
    - [Example configuration settings](#example-codebuild-configuration)
 7. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
-   - Take note of the secret name and key
+   - Take note of the secret key and secret name
 8. Replace the secret name and key on line 121 in **template.yml**
-   - **Example:** Token: '{{resolve:secretsmanager:`mysecret`:SecretString:`string`}}' 
-   - Replace the **mysecret** and **string** sections, as shown above.
+   - Example: '{{resolve:secretsmanager:`SecretName`:SecretString:`SecretKey`}}' 
+   - Replace the **SecretName** and **SecretKey** sections, as shown above
 
 ## 3. SAM Setup
 
