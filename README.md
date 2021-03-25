@@ -55,24 +55,16 @@
 
 1. Run `sam build` from the project home folder
    - [Click here for SAM build documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html)
-2. Run `sam deploy -g --capabilities CAPABILITY_NAMED_IAM` and fill out the prompts
+1. Run `sam deploy -g --capabilities CAPABILITY_NAMED_IAM` and fill out the prompts
    - You need URL of the image repo you created in the prerequisites
      - Example: `ACCOUNT_ID`.dkr.ecr.`AWS_REGION`.amazonaws.com/`REPO_NAME`
    - Input the image repo URL as the value for both **ECSREPO** parameter and **image-repository**
    - This solution deletes infected files by default
      - If you want to tag files instead, enter `Tag` as the value for the **PreferredAction** parameter
-3. After the stack is deployed, [go to the CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects) 
-4. Once in the console, open the CodeBuild project [and add a VPC](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
-
-# Planned Future Enhancements:
-
-1. Security:
-    - Trim down the IAM permissions across all the roles in the solution
-1. Internal Operations (In QuickStart account?):
-    - Build processes to produce CloudFormation templates for Lambda, Fargate and EC2
-    - Build process to update container image nightly in the public repo
-1. Prepare Cost estimations and Licenses
-1. Document QuickStart guide for customers
+1. Add VPC to your CodeBuild project
+    - After the stack is deployed, [go to the CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects) 
+    - Once in the console, open the CodeBuild project [and add a VPC](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
+    - Click Validate VPC Settings to confirm there is internet connectivity
 
 ## Limits
 1. [Lambda function code can access a writable /tmp directory with 512 MB of storage](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-reqs). Please consider these limits when deploying this solution.
