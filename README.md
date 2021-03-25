@@ -37,17 +37,15 @@
 ## 2. Initial Configuration
 
 1. [Fork this repo](https://guides.github.com/activities/forking/) into your own GitHub account 
-2. Run `git clone` to download the repo locally
-3. Update the repo URL in **template.yml** at line 154
-4. Update the image repo name in **buildspec.yml** on lines 21 and 22
-5. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
+1. Run `git clone` to download the repo locally
+1. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
    -  Under scopes, select **repo** - full control of private repositories
    -  Make sure to copy your personal access token upon creation
-6. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
+1. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
    - [Example configuration settings](#example-codebuild-configuration)
-7. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
+1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
-8. Replace the secret name and key on line 121 in **template.yml**
+1. Replace the secret name and key on line 121 in **template.yml**
 
 ## 3. SAM Setup
 
@@ -56,6 +54,7 @@
 2. Run `sam deploy -g --capabilities CAPABILITY_NAMED_IAM` and fill out the prompts
    - You need URL of the image repo you created in the prerequisites
      - Example: `ACCOUNT_ID`.dkr.ecr.`AWS_REGION`.amazonaws.com/`REPO_NAME`
+   - Input the image repo URL as the value for both **ECSREPO** parameter and **image-repository**
    - This solution deletes infected files by default
      - If you want to tag files instead, enter `Tag` as the value for the **PreferredAction** parameter
 3. After the stack is deployed, [go to the CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects) 
@@ -78,17 +77,13 @@
 
 # Planned Future Enhancements:
 
-1. Functional enhancements:
-    - Make this solution work with one or more existing buckets
-    - Input VPC to allow codebuild to reach internet and avoid manual modification of codebuild project
-    - Add support for S3 object versions
-2. Security:
+1. Security:
     - Trim down the IAM permissions across all the roles in the solution
-3. Internal Operations (In QuickStart account?):
+1. Internal Operations (In QuickStart account?):
     - Build processes to produce CloudFormation templates for Lambda, Fargate and EC2
     - Build process to update container image nightly in the public repo
-4. Prepare Cost estimations and Licenses
-5. Document QuickStart guide for customers
+1. Prepare Cost estimations and Licenses
+1. Document QuickStart guide for customers
 
 ## Limits
 1. [Lambda function code can access a writable /tmp directory with 512 MB of storage](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-reqs). Please consider these limits when deploying this solution.
