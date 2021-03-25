@@ -89,3 +89,6 @@
     - Build process to update container image nightly in the public repo
 4. Prepare Cost estimations and Licenses
 5. Document QuickStart guide for customers
+
+## Limits
+1. [Lambda function code can access a writable /tmp directory with 512 MB of storage](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-reqs). Please consider these limits when deploying this solution.

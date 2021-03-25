@@ -9,9 +9,12 @@ RUN yum install amazon-linux-extras -y
 # Python3 doesn't recognize this package yet. https://forums.aws.amazon.com/thread.jspa?messageID=930259
 RUN PYTHON=python2 amazon-linux-extras install epel -y
 
-RUN yum install -y gcc gcc-c++ clamav clamd clamav-update 
+RUN yum install -y gcc gcc-c++ clamav clamd clamav-update \
+    && ln -s /etc/freshclam.conf /tmp/freshclam.conf
 
 COPY function/virus-scanner.py ${LAMBDA_TASK_ROOT}/
+
+COPY clamd.conf /etc/clamd.conf
 
 COPY ./requirements.txt ${LAMBDA_TASK_ROOT}/requirements.txt
 

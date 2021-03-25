@@ -7,6 +7,8 @@ Metadata:
     ParameterLabels:
       PreferredAction:
         default: Preferred Action
+      ECRRepo:
+        default: ECR Repository Name
 
 Parameters:
     PreferredAction:
@@ -16,6 +18,10 @@ Parameters:
         - 'Tag'
       Description: Do you want to delete the infected file or just tag it?
       Default: 'Delete'
+    ECRRepo:
+      Type: String
+      Description: Enter your ECR repository URL in the format $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO
+
 Resources:
   bucket:
     Type: AWS::S3::Bucket
@@ -48,7 +54,7 @@ Resources:
             Action: '*'
             Resource: '*'
     Type: AWS::IAM::Role
-  
+
   EventRole:
     Description: IAM role to allow Amazon CloudWatch Events to trigger AWS CodeBuild build
     Properties:
@@ -147,6 +153,9 @@ Resources:
             Value: !Ref AWS::StackName
           - Name: S3_BUCKET
             Value: !Ref BuildArtifacts
+          - Name: ECR_REPO
+            Value: !Ref ECRRepo
+
       Source:
         Auth:
           Resource: !Ref CodeBuildSourceCredential
@@ -173,7 +182,7 @@ Resources:
     Type: AWS::Events::Rule
     Properties:
       Description: Rule for Amazon CloudWatch Events to trigger a build every night
-      ScheduleExpression: "cron(0 0 * * ? *)"
+      ScheduleExpression: "rate(1 day)"
       Name: !Join
       - '-'
       - - !Ref 'AWS::StackName'

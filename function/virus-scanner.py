@@ -7,7 +7,6 @@ from urllib.parse import unquote_plus
 
 s3_client = boto3.client('s3')
 
-
 def lambda_handler(event, context):
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
@@ -16,20 +15,6 @@ def lambda_handler(event, context):
         file_name = '/tmp/' + key.split('/')[-1]
 
         s3_client.download_file(bucket, key, file_name)
-
-        # scan_cmd = 'ls -al ' + file_name
-        # sp = subprocess.Popen(scan_cmd,
-        #                       shell=True,
-        #                       stdout=subprocess.PIPE,
-        #                       stderr=subprocess.PIPE,
-        #                       universal_newlines=True)
-
-        # out, err = sp.communicate()
-        # return_code = sp.wait()
-
-        # print("Return Code: " + str(return_code))
-        # print("Standard out: \n", out)
-        # print("Sending notification with scan results: \n", err)
 
         scan_cmd = 'clamscan --quiet ' + file_name
         sp = subprocess.Popen(scan_cmd,
@@ -62,7 +47,7 @@ def lambda_handler(event, context):
 
         if return_code == 0:
             print("Clean File. No Action!")
-        else:
+        elif return_code == 1:
             print("Return Code: " + str(return_code))
             print("Standard out: \n", out)
 
@@ -87,3 +72,5 @@ def lambda_handler(event, context):
 
                 print("Attempted tagging the tainted object. Result: " +
                       str(tag_response))
+        else:
+            print(f"Unknown error occured while scanning the {key} for viruses")

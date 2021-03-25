@@ -18,8 +18,8 @@ phases:
     commands:
       - echo Build started on `date`
       - sam build 
-      - sam package --output-template-file template-export.yml --image-repository $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/ga-dhs --s3-bucket $S3_BUCKET
-      - sam deploy --template-file template-export.yml --stack-name $STACK_NAME --image-repository $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/ga-dhs --s3-bucket $S3_BUCKET --capabilities CAPABILITY_NAMED_IAM
+      - sam package --output-template-file template-export.yml --image-repository $ECR_REPO --s3-bucket $S3_BUCKET
+      - sam deploy --template-file template-export.yml --stack-name $STACK_NAME --image-repository $ECR_REPO --s3-bucket $S3_BUCKET --capabilities CAPABILITY_NAMED_IAM
 
 artifacts:
   files:
