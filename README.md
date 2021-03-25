@@ -47,7 +47,7 @@
    - [Example configuration settings](#example-codebuild-configuration)
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
-1. Replace the secret name and key on line 121 in **template.yml**
+1. Replace the secret name and key on line 136 in **template.yml**
    - Example: '{{resolve:secretsmanager:`SecretName`:SecretString:`SecretKey`}}' 
    - Replace the **SecretName** and **SecretKey** sections, as shown above
 
