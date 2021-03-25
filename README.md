@@ -34,6 +34,8 @@
 
     - Change the repo name if required. Default is **quickstart-clamav**
 
+4. Currently, this solution must be deployed to a public AWS Region. GovCloud is not currently supported.
+
 ## 2. Initial Configuration
 
 1. [Fork this repo](https://guides.github.com/activities/forking/) into your own GitHub account 
@@ -46,6 +48,8 @@
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
 1. Replace the secret name and key on line 121 in **template.yml**
+   - Example: '{{resolve:secretsmanager:`SecretName`:SecretString:`SecretKey`}}' 
+   - Replace the **SecretName** and **SecretKey** sections, as shown above
 
 ## 3. SAM Setup
 
@@ -59,21 +63,6 @@
      - If you want to tag files instead, enter `Tag` as the value for the **PreferredAction** parameter
 3. After the stack is deployed, [go to the CodeBuild Console](https://console.aws.amazon.com/codesuite/codebuild/projects) 
 4. Once in the console, open the CodeBuild project [and add a VPC](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
-
-## Example CodeBuild Configuration
-
-- Source:
-  - GitHub
-- Environment:
-  - Environment Image: Managed Image
-  - Operating System: Amazon Linux 2
-  - Runtime: Standard
-  - Image: standard:3.0
-  - Image Version: Always use the latest image
-  - Service Role: New service role
-  - Role name: codebuild-Quickstart-ClamAV-service-role
-- Build Specifications:
-  - Use a buildspec file
 
 # Planned Future Enhancements:
 
