@@ -44,7 +44,6 @@
    -  Under scopes, select **repo** - full control of private repositories
    -  Make sure to copy your personal access token upon creation
 1. [Configure CodeBuild to access your GitHub repo](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html)
-   - [Example configuration settings](#example-codebuild-configuration)
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
 1. Replace the secret name and key on line 136 in **template.yml**
