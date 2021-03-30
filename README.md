@@ -49,7 +49,7 @@
 1. Replace the secret name and key on line 136 in **template.yml**
    - Example: '{{resolve:secretsmanager:`SecretName`:SecretString:`SecretKey`}}' 
    - Replace the **SecretName** and **SecretKey** sections, as shown above
-1. Edit line 163 in **template.yml**, and replace it with the GitHub fork you created in the previous step.
+1. Edit line 163 in **template.yml**, and replace it with the GitHub fork URL you created in the previous step.
 
 ## 4. SAM Setup and Deployment
 
