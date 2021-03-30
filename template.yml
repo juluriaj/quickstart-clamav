@@ -21,15 +21,6 @@ Parameters:
     ECRRepo:
       Type: String
       Description: Enter your ECR repository URL in the format $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO
-    CodeBuildVPC:
-      Type: AWS::EC2::VPC::Id
-      Description: Select a VPC for build machine so it can download antivirus definitions 
-    CodeBuildSubnet:
-      Type: List<AWS::EC2::Subnet::Id>
-      Description: Select private subnets that has NAT gateway configured
-    CodeBuildSecurityGroup:
-      Type: List<AWS::EC2::SecurityGroup::Id>
-      Description: Select security groups allowing egress HTTP traffic
 
 Resources:
   bucket:
@@ -164,10 +155,7 @@ Resources:
             Value: !Ref BuildArtifacts
           - Name: ECR_REPO
             Value: !Ref ECRRepo
-      VpcConfig:
-        VpcId: !Ref CodeBuildVPC
-        Subnets: [!Ref CodeBuildSubnet]
-        SecurityGroupIds: [!Ref CodeBuildSecurityGroup]
+
       Source:
         Auth:
           Resource: !Ref CodeBuildSourceCredential
