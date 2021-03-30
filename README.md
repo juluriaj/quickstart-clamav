@@ -34,8 +34,6 @@
 
     - Change the repo name if required. Default is **quickstart-clamav**
 
-4. Currently, this solution must be deployed to a public AWS Region. GovCloud is not currently supported.
-
 ## 2. Initial Configuration
 
 1. [Fork this repo](https://guides.github.com/activities/forking/) into your own GitHub account 
@@ -46,11 +44,14 @@
    -  [Click here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html) for more information on using other source providers with CodeBuild
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
+
+## 3. Template.yml Edits
 1. Replace the secret name and key on line 136 in **template.yml**
    - Example: '{{resolve:secretsmanager:`SecretName`:SecretString:`SecretKey`}}' 
    - Replace the **SecretName** and **SecretKey** sections, as shown above
+1. Edit line 163 in **template.yml**, and replace it with the GitHub fork URL you created in the previous step.
 
-## 3. SAM Setup
+## 4. SAM Setup and Deployment
 
 1. Run `sam build` from the project home folder
    - [Click here for SAM build documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html)
@@ -67,3 +68,4 @@
 
 ## Limits
 1. [Lambda function code can access a writable /tmp directory with 512 MB of storage](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-reqs). Please consider these limits when deploying this solution.
+2. Currently, this solution must be deployed to a public AWS Region. GovCloud is not supported yet.
