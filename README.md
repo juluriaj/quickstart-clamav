@@ -28,7 +28,8 @@
 ## 1. Prerequisites
 1. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) and the [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 2. [Configure the AWS CLI with your credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-3. Create a new image repo using AWS console or CLI with the following command:
+3. [Install and run Docker on your local machine](https://www.docker.com/products/docker-desktop)
+4. Create a new image repo using AWS console or CLI with the following command:
 
     `aws ecr create-repository --repository-name quickstart-clamav --image-tag-mutability IMMUTABLE --image-scanning-configuration scanOnPush=true`
 
@@ -39,7 +40,7 @@
 1. [Fork this repo](https://guides.github.com/activities/forking/) into your own GitHub account 
 1. Run `git clone` to download the repo locally
 1. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
-   -  Under scopes, select **repo** - full control of private repositories
+   -  Under scopes, select **repo** - full control of private repositories and **admin:repo_hook** - full control of repository hooks
    -  Make sure to copy your personal access token upon creation
    -  [Click here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html) for more information on using other source providers with CodeBuild
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
@@ -66,6 +67,19 @@
     - Once in the console, open the CodeBuild project [and add a VPC](https://docs.aws.amazon.com/codebuild/latest/userguide/vpc-support.html)
     - Click Validate VPC Settings to confirm there is internet connectivity
 
-## Limits
+# Notes
+
+## Limitations
 1. [Lambda function code can access a writable /tmp directory with 512 MB of storage](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-reqs). Please consider these limits when deploying this solution.
 2. Currently, this solution must be deployed to a public AWS Region. GovCloud is not supported yet.
+3. By default, the ClamAV scanner will only scan objects uploaded to the newly created S3 bucket. Read the instructions below to configure it for an existing bucket.
+
+## Setup with an Existing Bucket
+
+1. Within the S3 console, navigate to the S3 bucket you want to configure
+2. Create an event notification
+3. Configure the event notification to trigger on **Put** and **Post**
+   - This can be modified based on your use case 
+4. Set the prefix as `Inbound/`
+5. Set the destination as a Lambda function
+6. Select your ClamAV Lambda function as the destination
