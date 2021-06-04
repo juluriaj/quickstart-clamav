@@ -179,6 +179,8 @@ Resources:
             Value: !Ref ECRRepo
           - Name: GITRepo
             Value: !Ref GITRepo
+          - Name: PreferredAction
+            Value: $PreferredAction            
           - Name: S3Buckets
             Value: !Join [ ",", !Ref S3Buckets]
           - Name: SecretName
