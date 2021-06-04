@@ -25,7 +25,6 @@ Parameters:
         - 'Delete'
         - 'Tag'
       Description: Choose "Delete" if you want to delete the infected file. Or "Tag" to assign a tag but keep the file.
-      Default: 'Delete'
     ECRRepo:
       Type: String
       Description: Enter the URL of your ECR repository. e.g., AWSAccountID.dkr.ecr.AWS_REGION_ID.amazonaws.com/ecr_repo_name
@@ -180,7 +179,7 @@ Resources:
           - Name: GITRepo
             Value: !Ref GITRepo
           - Name: PreferredAction
-            Value: !Ref PreferredAction            
+            Value: !Ref PreferredAction
           - Name: S3Buckets
             Value: !Join [ ",", !Ref S3Buckets]
           - Name: SecretName
