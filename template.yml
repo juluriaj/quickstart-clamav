@@ -180,7 +180,7 @@ Resources:
           - Name: GITRepo
             Value: !Ref GITRepo
           - Name: PreferredAction
-            Value: $PreferredAction            
+            Value: !Ref PreferredAction            
           - Name: S3Buckets
             Value: !Join [ ",", !Ref S3Buckets]
           - Name: SecretName
