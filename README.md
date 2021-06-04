@@ -41,18 +41,12 @@
 1. Run `git clone` to download the repo locally
 1. [Create a personal access token from GitHub](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) 
    -  Under scopes, select **repo** - full control of private repositories and **admin:repo_hook** - full control of repository hooks
-   -  Make sure to copy your personal access token upon creation
+   -  Make sure to copy your personal access token value upon creation
    -  [Click here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html) for more information on using other source providers with CodeBuild
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and key
 
-## 3. Template.yml Edits
-1. Replace the secret name and key on line 136 in **template.yml**
-   - Example: '{{resolve:secretsmanager:`SecretName`:SecretString:`SecretKey`}}' 
-   - Replace the **SecretName** and **SecretKey** sections, as shown above
-1. Edit line 163 in **template.yml**, and replace it with the GitHub fork URL you created in the previous step.
-
-## 4. SAM Setup and Deployment
+## 3. SAM Setup and Deployment
 
 1. Run `sam build` from the project home folder
    - [Click here for SAM build documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html)

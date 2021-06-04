@@ -21,11 +21,11 @@ Parameters:
     ECRRepo:
       Type: String
       Description: Enter your ECR repository URL in the format $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO
+    S3Buckets:
+      Type: CommaDelimitedList
+      Description: Enter your S3 bucket names to be scanned separated by commas. e.g., bucket1,bucket2
 
 Resources:
-  bucket:
-    Type: AWS::S3::Bucket
-    DeletionPolicy: Retain
   
   BuildArtifacts:
     Type: AWS::S3::Bucket
@@ -103,17 +103,20 @@ Resources:
             Ref: PreferredAction
       Events:
         s3Notification:
-          Type: S3
+          Type: CloudWatchEvent 
           Properties:
-            Bucket: 
-              Ref: bucket
-            Events: s3:ObjectCreated:Put
-            Filter:
-              S3Key:
-                Rules:
-                - Name: prefix
-                  Value: inbound/
-
+            Pattern:
+              source:
+                - aws.s3
+              detail-type:
+                - AWS API Call via CloudTrail
+              detail:
+                eventSource:
+                  - s3.amazonaws.com
+                eventName:
+                  - PutObject
+                requestParameters:
+                  bucketName: !Ref S3Buckets
     Metadata:
       DockerTag: virus-scanner
       DockerContext: .
@@ -155,12 +158,11 @@ Resources:
             Value: !Ref BuildArtifacts
           - Name: ECR_REPO
             Value: !Ref ECRRepo
-
       Source:
         Auth:
           Resource: !Ref CodeBuildSourceCredential
           Type: OAUTH
-        Location: https://github.com/EXAMPLE/quickstart-clamav.git
+        Location: !Ref GITRepo
         Type: GITHUB
         GitCloneDepth: 1
       Triggers:
