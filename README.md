@@ -47,6 +47,7 @@ An AWS SAM application to keep your S3 buckets safe from viruses using ClamAV Op
    -  [Click here](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html) for more information on using other source providers with CodeBuild
 1. Store your token in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
    - Take note of the secret name and secret key
+1. Push any pending code changes to your git repo using git commit and push commands.
 
 ## 3. SAM Setup and Deployment
 
@@ -70,6 +71,7 @@ An AWS SAM application to keep your S3 buckets safe from viruses using ClamAV Op
 1. Search for _virusscannerfn_ under Rules and click the rule to open
 1. Update the event pattern and update the bucket names and/or event names
    - Learn more about [EventBridge rules here](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-log-s3-data-events.html#eb-log-s3-create-rule)
+1. As a best practice, update the event pattern in template.yml accordingly and push the changes to your git repo
 
 ## Common Issues:
 #### **Error -** CodeBuild fails to download updated antivirus definitions from the internet
