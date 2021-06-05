@@ -174,7 +174,7 @@ Resources:
             Value: !Ref AWS::StackName
           - Name: S3_BUCKET
             Value: !Ref BuildArtifacts
-          - Name: ECR_REPO
+          - Name: ECR_Repo
             Value: !Ref ECRRepo
           - Name: GITRepo
             Value: !Ref GITRepo
