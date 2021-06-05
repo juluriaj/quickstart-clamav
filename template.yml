@@ -8,7 +8,7 @@ Metadata:
       PreferredAction:
         default: Preferred Action
       ECRRepo:
-        default: ECR Repository Name
+        default: ECR Repository URL
       GITRepo:
         default: GIT Repository Name
       S3Buckets:
@@ -25,6 +25,7 @@ Parameters:
         - 'Delete'
         - 'Tag'
       Description: Choose "Delete" if you want to delete the infected file. Or "Tag" to assign a tag but keep the file.
+      Default: 'Delete'
     ECRRepo:
       Type: String
       Description: Enter the URL of your ECR repository. e.g., AWSAccountID.dkr.ecr.AWS_REGION_ID.amazonaws.com/ecr_repo_name
@@ -145,7 +146,13 @@ Resources:
     Properties:
       AuthType: PERSONAL_ACCESS_TOKEN
       ServerType: GITHUB
-      Token: '{{resolve:secretsmanager:gitsecret:SecretString:gitpat}}'
+      Token: !Join
+      - ''
+      - - '{{resolve:secretsmanager:'
+        - !Ref SecretName
+        - ':SecretString:'
+        - !Ref SecretKey
+        - '}}'
 
   SamCodeBuild:
     Type: AWS::CodeBuild::Project
