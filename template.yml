@@ -34,7 +34,7 @@ Parameters:
       Description: Enter the URL of your git repository. e.g., https://github.com/your_user_name/quickstart-clamav.git
     S3Buckets:
       Type: CommaDelimitedList
-      Description: Enter your S3 bucket names as comma separated values e.g., bucket1,bucket2 (or) leave blank if you want ALL buckets to be scanned.
+      Description: Enter your S3 bucket names to be scanned separated by commas. e.g., bucket1,bucket2
     SecretName:
       Type: String
       Description: Enter the Secret name
@@ -49,11 +49,6 @@ Resources:
   BuildArtifacts:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
-    AccessControl: Private
-    BucketEncryption:
-      ServerSideEncryptionConfiguration:
-        - ServerSideEncryptionByDefault:
-            SSEAlgorithm: AES256
 
   CodeBuildRole:
     Description: Creating service role in IAM for AWS CodeBuild
