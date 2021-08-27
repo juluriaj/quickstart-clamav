@@ -85,7 +85,11 @@ An AWS SAM application to keep your S3 buckets safe from viruses using ClamAV Op
 #### **Error -** Build fails with message like _Failed to call ImportSourceCredentials, reason: Token is required (Service: AWSCodeBuild; Status code: 400; Error Code: InvalidInputException; Request ID: xxx; Proxy: null)_
 - **Solution -**
    - Ensure you have provided valid secret name and secret key for `SecretName` and `SecretKey`. You can lookup parameters in CloudFormation console -> Click on virusscanner stack -> Click on Parameters
-
+#### **Error -** Build fails with message like _pull access denied for public.ecr.aws/lambda/python, repository does not exist or may require 'docker login': denied: Your authorization token has expired._
+- **Solution -**
+   - Run `docker logout public.ecr.aws` and try again. 
+   - If the issue persists, try running `aws ecr-public get-login-password --region <region> | docker login --username AWS --password-stdin public.ecr.aws`
+   - Read here for more information - https://docs.aws.amazon.com/AmazonECR/latest/public/public-registries.html#public-registry-auth
 ## Limitations
 1. This solution supports files up to 512MB size due to underlying lambda containers limit. Please consider these limits when deploying this solution. Read here for additional information: [Lambda function code can access a writable /tmp directory with 512 MB of storage](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-reqs). 
 1. Currently, this solution must be deployed to a public AWS Region. GovCloud is not supported yet.
