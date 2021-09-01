@@ -49,6 +49,11 @@ Resources:
   BuildArtifacts:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
 
   CodeBuildRole:
     Description: Creating service role in IAM for AWS CodeBuild
