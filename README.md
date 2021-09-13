@@ -1,4 +1,4 @@
-NOTE: This repo was replaced by https://github.com/aws-samples/aws-serverless-s3-antivirus. All modifications will be done in the new repo, so please consider switching at the earliest possible date. 
+*NOTE:* This repo was replaced by https://github.com/aws-samples/aws-serverless-s3-antivirus. All modifications will be done in the new repo, so please consider switching at the earliest possible date. 
 
 # README
 
